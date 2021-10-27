@@ -70,6 +70,7 @@ namespace Ltwlf.Azure.B2C
             var jwt = await tokenResponse.Content.ReadAsAsync<JObject>();
 
             authState.AccessToken = jwt.Value<string>("access_token");
+            authState.IdToken = jwt.Value<string>("id_token");
             authState.RefreshToken = jwt.Value<string>("refresh_token");
             authState.ExpiresIn = jwt.Value<int>("expires_in");
             authState.TokenType = jwt.Value<string>("token_type");

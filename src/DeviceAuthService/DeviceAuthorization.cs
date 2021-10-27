@@ -69,8 +69,8 @@ namespace Ltwlf.Azure.B2C
                 ExpiresIn = authState.ExpiresIn,
                 VerificationUri = authState.VerificationUri
             };
-
-            _muxer.GetDatabase().StringSet($"{authState.DeviceCode}:{authState.UserCode}",
+            var key = $"{authState.DeviceCode}:{authState.UserCode}";
+            _muxer.GetDatabase().StringSet(key,
                 JsonConvert.SerializeObject(authState), new TimeSpan(0, 0, authState.ExpiresIn));
 
             return new OkObjectResult(response);

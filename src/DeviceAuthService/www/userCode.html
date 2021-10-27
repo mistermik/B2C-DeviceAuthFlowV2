@@ -25,34 +25,50 @@
         }
     </style>
     <script type="application/javascript">
-        document.addEventListener("DOMContentLoaded", function(){
-            const textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
-            mdc.ripple.MDCRipple.attachTo(document.querySelector('.sign-in-button'));
-        });
-        
+        function getUrlVars() {
+            var vars = {};
+            var parts = window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+            vars[key] = value;
+            });
+        return vars;
+        }
+        function getUrlParam(parameter, defaultvalue){
+            var urlparameter = defaultvalue;
+            if(window.location.href.indexOf(parameter) > -1){
+                urlparameter = getUrlVars()[parameter];
+                }
+            return urlparameter;
+        }
+            document.addEventListener("DOMContentLoaded", function(){
+                const textField = new mdc.textField.MDCTextField(document.querySelector('.mdc-text-field'));
+                mdc.ripple.MDCRipple.attachTo(document.querySelector('.sign-in-button'));
+                textField.value = getUrlParam('user_code','');
+                if(textField.value != '') { document.getElementById('form').submit();}
+            });
+
     </script>
 </head>
 <body>
 
-<form method="post">
-<div class="container">
-    <h1 class="mdc-typography--headline3 mdc-theme--text-primary-on-light">Sign-in</h1>
-    <div>
-        <label class="mdc-text-field mdc-text-field--filled">
-            <span class="mdc-text-field__ripple"></span>
-            <input name="user_code" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
-            <span class="mdc-floating-label" id="my-label-id">Enter code</span>
-            <span class="mdc-line-ripple"></span>
-        </label>
-    </div>
-    <div>
-        <button type="submit" value="test" class="mdc-button mdc-button--raised sign-in-button">
-            <div class="mdc-button__ripple"></div>
-            <span class="mdc-button__label">Sign-in</span>
-        </button>
-    </div>
-</div>
-</form>
+    <form id="form" method="post">
+        <div class="container">
+            <h1 class="mdc-typography--headline3 mdc-theme--text-primary-on-light">Sign-in</h1>
+            <div>
+                <label class="mdc-text-field mdc-text-field--filled">
+                    <span class="mdc-text-field__ripple"></span>
+                    <input name="user_code" class="mdc-text-field__input" type="text" aria-labelledby="my-label-id">
+                    <span class="mdc-floating-label" id="my-label-id">Enter code</span>
+                    <span class="mdc-line-ripple"></span>
+                </label>
+            </div>
+            <div>
+                <button type="submit" value="test" class="mdc-button mdc-button--raised sign-in-button">
+                    <div class="mdc-button__ripple"></div>
+                    <span class="mdc-button__label">Sign-in</span>
+                </button>
+            </div>
+        </div>
+    </form>
 
 </body>
 </html>

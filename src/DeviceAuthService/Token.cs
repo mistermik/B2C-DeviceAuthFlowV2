@@ -22,6 +22,7 @@ namespace Ltwlf.Azure.B2C
         private class TokenResponse
         {
             [JsonProperty("access_token")] public string AccessToken { get; set; }
+            [JsonProperty("IdToken")] public string IdToken { get; set; }
             [JsonProperty("token_type")] public string TokenType { get; set; }
             [JsonProperty("expires_in")] public int ExpiresIn { get; set; }
             [JsonProperty("refresh_token")] public string RefreshToken { get; set; }
@@ -89,11 +90,15 @@ namespace Ltwlf.Azure.B2C
 
             var authState = JsonConvert.DeserializeObject<AuthorizationState>(authStateJson);
 
-            if (authState.AccessToken == null) return new BadRequestObjectResult("authorization_pending");
+            //if (authState.AccessToken == null) return new BadRequestObjectResult("authorization_pending");
+            if ((authState.AccessToken == null) && (authState.IdToken == null)) return new BadRequestObjectResult("authorization_pending");
+            
+            if (!(authState.ClientId == clientId)) return new BadRequestObjectResult("The provided authorization grant (e.g., authorization code, resource owner credentials) or refresh token is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client");
 
             var tokenResponse = new TokenResponse
             {
                 AccessToken = authState.AccessToken,
+                IdToken = authState.IdToken,
                 RefreshToken = authState.RefreshToken,
                 ExpiresIn = authState.ExpiresIn,
                 TokenType = authState.TokenType,

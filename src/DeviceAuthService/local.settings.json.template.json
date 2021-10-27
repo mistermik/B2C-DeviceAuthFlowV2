@@ -1,14 +1,18 @@
 {
-    "IsEncrypted": false,
-    "Values": {
-        "AzureWebJobsStorage": "UseDevelopmentStorage=true",
-        "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-        "Config:AppId": "",
-        "Config:AppSecret": "",
-        "Config:Tenant": "myb2c",
-        "Config:RedirectUri": "http://localhost:7071/authorization_callback",
-        "Config:SignInPolicy": "B2C_1A_signup_signin",
-        "Config:VerificationUri": "http://localhost:7071",
-        "Config:Redis": "localhost"
-    }
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
+    "Config:AppId": "eef95d6c-cd2c-4044-84c2-ef01d143a6e4",
+    "Config:AppSecret": "",
+    "Config:Tenant": "identityb2c",
+    "Config:RedirectUri": "http://localhost:7071/authorization_callback",
+    "Config:SignInPolicy": "B2C_1A_B2CASENTRYPOINTSIGNUP_SIGNIN",
+    "Config:VerificationUri": "http://localhost:7071",
+    "Config:Redis": "127.0.0.1",
+    // optional: configure custom html pages (e.g. load from a blob storage)
+    "Config:UserCodePage": "http://localhost:8080/usercode.html",
+    "Config:SuccessPage": "http://localhost:8080/success.html",
+    "Config:ErrorPage": "http://localhost:8080/error.html"
+  }
 }
