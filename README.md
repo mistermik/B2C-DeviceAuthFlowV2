@@ -1,4 +1,13 @@
-_Work in progress_...
+Reviewed code from original Author=ltwlf, original Repo: https://github.com/ltwlf/azure-ad-b2c-device-flow
+
+
+# Architectural Diagram
+![B2C-AzFunction-DeviceAuthFlow](https://user-images.githubusercontent.com/15340423/139158723-cb03dfef-3352-45f8-a7aa-91b0d04a040d.png)
+
+# Publish to Azure Functions
+Remember that there is no local.settings.json in Azure functions and, you have to specify those settings in configuration as shown below:
+![image](https://user-images.githubusercontent.com/15340423/139159007-4ddd2925-2d5a-4c88-8c23-1857e945e775.png)
+
 
 # Device Flow Authentication
 
@@ -49,8 +58,8 @@ Example Response:
 ```
 
 ## Navigate to website
+<img src="https://user-images.githubusercontent.com/15340423/139159256-b948e4d1-16c4-43c5-876b-16bc462fe904.png" width=20% height=20%>
 
-https://service-device-auth-flow.azurewebsites.net/
 
 Enter User Code and login
 
@@ -110,45 +119,6 @@ Date: Wed, 30 Sep 2020 12:46:31 GMT
 
 ```
 
-## Example custom user code page
 
-```html
-
-<html>
-<body>
-<div>
-    <form id="form" method="post">
-        <label for="user_code">User Code</label>
-        <input name="user_code" autofocus="autofocus"/>
-        <button type="submit">Send</button>
-    </form>
-</div>
-</body>
-</html>
-```
-
-Instead of submitting the form directly you can also use JavaScript to submit.
-
-```javascript
-const form = document.getElementById("form");
-window
-    .fetch("", {
-        method: "post",
-        "Content-Type": "application/x-www-form-urlencoded",
-        body: new FormData(form),
-        headers: {
-            "x-use-ajax": true,
-        },
-    })
-    .then((resp) => {
-        if (resp.ok) {
-            resp
-                .text()
-                .then((redirectUrl) => (window.location.href = redirectUrl));
-        } else {
-            alert("error")
-        }
-    })
-````
 
 The success and error pages are just static HTML pages.
