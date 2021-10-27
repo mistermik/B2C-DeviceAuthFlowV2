@@ -1,4 +1,4 @@
-Reviewed code from original Author=ltwlf, original Repo: https://github.com/ltwlf/azure-ad-b2c-device-flow
+**Modified code from original Author=ltwlf, original Repo: https://github.com/ltwlf/azure-ad-b2c-device-flow**
 
 
 # Architectural Diagram
