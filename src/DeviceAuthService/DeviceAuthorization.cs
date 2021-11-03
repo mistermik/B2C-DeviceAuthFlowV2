@@ -47,9 +47,9 @@ namespace Ltwlf.Azure.B2C
                 throw new ArgumentException("Request content type must be application/x-www-form-urlencoded");
             }
 
-            if (!req.Form.TryGetValue("clientId", out var clientId))
+            if (!req.Form.TryGetValue("client_Id", out var clientId))
             {
-                throw new ArgumentException("ClientId is missing!");
+                throw new ArgumentException("Client_Id is missing!");
             }
 
             var authState = new AuthorizationState()

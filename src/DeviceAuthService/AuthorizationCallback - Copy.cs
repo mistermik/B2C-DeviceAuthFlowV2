@@ -34,28 +34,20 @@ namespace Ltwlf.Azure.B2C
 
         [FunctionName("authorization_callback")]
         public async Task<IActionResult> RunAsync(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", "post", Route = "authorization_callback")]
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "authorization_callback")]
             HttpRequest req, ILogger log, ExecutionContext context)
         {
             log.LogInformation("authorization_callback function processed a request.");
 
-            if (req.Query.ContainsKey("error"))
+            if(req.Query.ContainsKey("error"))
             {
                 return _pageFactory.GetPageResult(PageFactory.PageType.Error);
             }
 
-            //use post to avoid code limitation in Azure Functions IIS  maxQueryStringLength="4096" 
-            //https://github.com/Azure/azure-functions-host/issues/2331
-            //https://github.com/Azure/azure-functions-host/blob/v1.x/src/WebJobs.Script.WebHost/Web.config#L38
-            //string code = req.Query["code"];
-            //string userCode = req.Query["state"];
+            string code = req.Query["code"];
 
-            string requestBody = await new StreamReader(req.Body).ReadToEndAsync();
-            String code = HttpUtility.ParseQueryString(requestBody).Get("code");
-            String userCode = HttpUtility.ParseQueryString(requestBody).Get("state");
-
-
-
+            string userCode = req.Query["state"];
+            
             var authState = await Helpers.GetValueByKeyPattern<AuthorizationState>(_muxer, $"*:{userCode}");
             if (authState == null)
             {
